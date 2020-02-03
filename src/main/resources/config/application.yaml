@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    url: jdbc:sqlserver://${MSSQL_DB_HOST:}:1433;databaseName=${MSSQL_DB_SCHEMA:};${MSSQL_DB_OPTION:}
+    username: ${MSSQL_DB_USERNAME:}
+    password: ${MSSQL_DB_PASSWORD:}
+    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    type: org.apache.tomcat.jdbc.pool.DataSource
+    jmx-enabled: true
+    tomcat:
+      max-active: ${MSSQL_DB_MAX_TOTAL:5}
+      max-idle: ${MSSQL_DB_MAX_IDLE:2}
+      min-idle: ${MSSQL_DB_MIN_IDLE:2}
+      initial-size: ${MSSQL_DB_INITIAL_SIZE:0}
+      validation-query: SELECT 1 #コネクションが有効か確認する際に発行するSQLクエリ文字列
+      test-on-return: true
+      test-on-connect: true #接続時のConnection verification
+      test-on-borrow: true #プールからコネクションが貸し出される前にコネクションの有効性を検証
+      test-while-idle: true #アイドル状態のコネクションの有効性を検証。検証に失敗した場合は該当コネクションを破棄。
+#      jdbc-interceptors: "org.apache.tomcat.jdbc.pool.interceptor.ResetAbandonedTimer"
+      validation-interval: 30000 #ms
+#      remove-abandoned: true #クローズ漏れコネクションの検知を行う場合はtrueに設定
+#      remove-abandoned-timeout: 30 #sec
+logging:
+  level:
+    root: DEBUG
