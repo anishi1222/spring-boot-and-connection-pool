@@ -20,13 +20,6 @@ public class SampleInterceptor extends JdbcInterceptor {
     public void disconnected(ConnectionPool parent, PooledConnection con, boolean finalizing) {
         log.warn("Connection is disconnected.");
         log.warn("pool connecction size[" + parent.getSize() + "] MinIdle [" + parent.getPoolProperties().getMinIdle() + "]");
-        if(parent.getSize() < parent.getPoolProperties().getMinIdle()) {
-            try {
-                parent.getConnection();
-            }catch(SQLException e) {
-                log.warn("Connection is not created.");
-            }
-        }
-//        super.disconnected(parent, con, finalizing);
+        super.disconnected(parent, con, finalizing);
     }
 }
